@@ -110,10 +110,12 @@ int main(int argc, char *argv[])
             break;
         case ButtonPress:
             button_ev = (XButtonEvent *)&ev;
-            if (button_ev->button == Button1)
-                spawn(&argv[1]);
-            else if (button_ev->button == Button3)
-                is_open = 0;
+            if (button_ev->button == Button1 || button_ev->button == Button3) {
+                if (button_ev->state & ShiftMask)
+                    is_open = 0;
+                else
+                    spawn(&argv[1]);
+            }
             break;
         default:
             break;
