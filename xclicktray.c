@@ -103,13 +103,13 @@ int main(int argc, char *argv[])
 
         switch (ev.type) {
         case Expose:
-            expose_ev = (XExposeEvent *)&ev;
+            expose_ev = &ev.xexpose;
             XFillRectangle(dpy, w, gc, expose_ev->x, expose_ev->y,
                            expose_ev->width, expose_ev->height);
             XSync(dpy, False);
             break;
         case ButtonPress:
-            button_ev = (XButtonEvent *)&ev;
+            button_ev = &ev.xbutton;
             if (button_ev->button == Button1 || button_ev->button == Button3) {
                 if (button_ev->state & ShiftMask)
                     is_open = 0;
